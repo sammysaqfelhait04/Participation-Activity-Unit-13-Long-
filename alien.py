@@ -30,6 +30,14 @@ class Bullet(Sprite):
         self.x+= temp_speed
         self.rect.x = self.x
 
+        if self.check_edges():
+            self.settings.fleet_direction *= -1
+            self.x+= temp_speed * self.settings.fleet_direction
+            self.rect.x = self.x
+
+        def check_edges(self):
+            return self.rect.right >= self.boundaries.right or self.rect.left <= self.boundaries.left
+
         if self.moving_right and self.rect.right < self.boundaries.right:
             self.x += temp_speed
         if self.moving_left and self.rect.left > self.boundaries.left:
