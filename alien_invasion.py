@@ -3,6 +3,7 @@ import pygame
 from settings import Settings
 from ship import Ship
 from arsenal import Arsenal
+from alien_fleet import AlienFleet
 
 class AlienInvasion:
     def __init__(self):
@@ -28,6 +29,9 @@ class AlienInvasion:
 
         self.clock = pygame.time.Clock()
         self.ship = Ship(self, Arsenal(self))
+        self.alien_fleet = AlienFleet(self)
+        self.alien_fleet.create_fleet()
+        self.arsenal = Arsenal(self)
 
     def run_game(self):
         while self.running:
@@ -49,6 +53,7 @@ class AlienInvasion:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+
         elif event.key == pygame.K_SPACE:
             self.ship.fire()
             self.laser_sound.play()
