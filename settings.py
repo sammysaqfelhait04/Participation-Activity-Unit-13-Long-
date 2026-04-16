@@ -29,6 +29,6 @@ class Settings:
     self.alien_file = Path.cwd() / "assets" / "images" / "enmy_4.png"
     self.alien_width = 40
     self.alien_height = 40
-    self.fleet_speed = 5
+    self.fleet_speed = 2
         
 

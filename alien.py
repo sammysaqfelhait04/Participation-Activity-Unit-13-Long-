@@ -23,10 +23,18 @@ class Bullet(Sprite):
         self.rect = self.image.get_rect()
         self.rect.midtop = game.ship.rect.midtop
         self.y = float(self.rect.y)
+        self.x = float(self.rect.x)
 
     def update(self):
-        self.y -= self.settings.bullet_speed
-        self.rect.y = self.y
+        temp_speed = self.settings.fleet_speed
+        self.x+= temp_speed
+        self.rect.x = self.x
+
+        if self.moving_right and self.rect.right < self.boundaries.right:
+            self.x += temp_speed
+        if self.moving_left and self.rect.left > self.boundaries.left:
+            self.x -= temp_speed
+
 
     def draw_bullet(self):
         self.screen.blit(self.image, self.rect)
