@@ -4,15 +4,17 @@ from pygame.sprite import Sprite
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from alien_invasion import AlienInvasion
+    from alien_fleet import AlienFleet
 
 
 class Bullet(Sprite):
-    def __init__(self, game: "AlienInvasion"):
+    def __init__(self, fleet: "AlienFleet", x: float, y: float):
         super().__init__()
-        self.game = game
-        self.screen = game.screen
-        self.settings = game.settings
+
+        self.fleet = fleet
+        self.fleet = fleet
+        self.screen = fleet.game.screen
+        self.settings = fleet.game.settings
 
         self.image = pygame.image.load(self.settings.bullet_file)
         self.image = pygame.transform.scale(
@@ -21,7 +23,7 @@ class Bullet(Sprite):
         )
 
         self.rect = self.image.get_rect()
-        self.rect.midtop = game.ship.rect.midtop
+        self.rect.midtop = fleet.game.ship.rect.midtop
         self.y = float(self.rect.y)
         self.x = float(self.rect.x)
 
@@ -32,9 +34,7 @@ class Bullet(Sprite):
         self.y += self.settings.fleet_drop_speed
         self.rect.y = self.y
 
-        if self.check_edges():
-            self.settings.fleet_direction *= -1
-            self.y += self.settings.fleet_drop_speed
+        
 
         def check_edges(self):
             return self.rect.right >= self.boundaries.right or self.rect.left <= self.boundaries.left
