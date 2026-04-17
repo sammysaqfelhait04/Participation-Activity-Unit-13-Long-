@@ -80,7 +80,10 @@ def check_fleet_edges(self) -> None:
             alien.rect.y = alien.y
             break
 
-
+def _reset_level(self) -> None:
+    self.ship.arsenal.empty()
+    self.alien_fleet.fleet.empty()
+    self.alien_fleet.create_fleet()
 
 
 def _drop_aline_fleet(self) -> None:
@@ -98,5 +101,13 @@ def draw_fleet(self) -> None:
 
 
 
-                
-            
+   def check_collisions(self, other_group, ship) -> None:
+        return pygame.sprite.groupcollide(self.fleet, other_group, True, True)  
+
+
+def check_fleet_bottom(self) -> bool:
+    aline: 'Alien'
+    for aline in self.fleet:
+        if aline.rect.bottom >= self.game.screen.get_rect().bottom:
+            return True
+    return False
