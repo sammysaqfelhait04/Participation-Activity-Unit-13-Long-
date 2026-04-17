@@ -2,14 +2,17 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
+from game_stat import Gamestat
 from arsenal import Arsenal
 from alien_fleet import AlienFleet
+
+from time import sleep  
 
 class AlienInvasion:
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
-
+        self.game_stat = self.game_stat = Gamestat(self.settings.starting_ship_count)
         self.running = True
         self.settings = Settings()
 
@@ -39,6 +42,7 @@ class AlienInvasion:
     def run_game(self):
         while self.running:
             self._check_events()
+            if self.game_active:
             self._update_screen(
             )
             self.ship.update()
@@ -61,6 +65,14 @@ class AlienInvasion:
                       self.impact_sound.play()
                       self.impact_sound.fadeout(500)
 
+               def _check_game_status(self):
+                 if self.game_stat.ship_limit > 0:
+                    self.game_stat.ship_limit -= 1
+                    self._reset_level()
+                    self._rset_level()
+                    sleep(0.5)
+                 else:
+                     self.game_active = False
 
                       
 
@@ -73,6 +85,7 @@ class AlienInvasion:
                 self.arsenal.empty()
                 self.alien_fleet.empty()
                 self.alien_fleet.create_fleet()
+                self.game_active = True
                 self.ship.rect.midbottom = self.screen.get_rect().midbottom
                 
 

@@ -24,6 +24,7 @@ class Settings:
         self.bullet_width = 25
         self.bullet_speed = 7
         self.bullets_allowed = 5
+        self.starting_ship_count = 3
 
 
 
