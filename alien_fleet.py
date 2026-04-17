@@ -111,3 +111,7 @@ def check_fleet_bottom(self) -> bool:
         if aline.rect.bottom >= self.game.screen.get_rect().bottom:
             return True
     return False
+
+
+def check_destroyed_status(self) -> bool:
+    return not self.fleet
