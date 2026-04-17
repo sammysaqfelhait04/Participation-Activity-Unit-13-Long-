@@ -23,6 +23,7 @@ class Ship:
         )
 
         self.rect = self.image.get_rect()
+        self._center_ship()
         self.screen_rect = self.screen.get_rect()
         self.rect.midbottom = self.screen_rect.midbottom
 
@@ -47,5 +48,11 @@ class Ship:
 
     def draw(self):
         self.screen.blit(self.image, self.rect)
+
+    def check_collisions(self, other_group) :
+        if pygame.sprite.spritecollideany(self, other_group):
+            self._center_ship()
+            return True
+        return False
 
         
